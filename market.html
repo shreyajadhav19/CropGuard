@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Market Price Tracker - CropGuard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background-color: #D1DBBD;
+      font-family: 'Poppins', sans-serif;
+      color: #283106;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #283106;
+      margin-bottom: 10px;
+    }
+
+    form {
+      background: #F3F4E9;
+      display: inline-block;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      width: 90%;
+      max-width: 450px;
+    }
+
+    input, button {
+      padding: 12px;
+      margin: 10px 0;
+      width: 90%;
+      border-radius: 8px;
+      border: 1px solid #777E5C;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #777E5C;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #283106;
+    }
+
+    .result-box {
+      background: #C7C2AB;
+      padding: 15px;
+      width: 60%;
+      margin: 20px auto;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 800px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #777E5C;
+      color: white;
+    }
+
+    tr:hover {
+      background: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌾 Market Price Tracker</h1>
+  <p>Check latest crop prices and record them into your database.</p>
+
+  <form method="POST">
+    <input type="text" name="crop_name" placeholder="Enter crop name" required>
+    <input type="text" name="market_name" placeholder="Enter market / region" required>
+    <button type="submit">Check Price</button>
+  </form>
+
+  {% if latest %}
+    <div class="result-box">
+      <b>{{ latest.crop_name }}</b> — ₹{{ latest.price }}  
+      <br>
+      Market: <b>{{ latest.market_name }}</b>  
+      <br>
+      
+    </div>
+  {% elif error_msg %}
+    <p style="color:red; font-weight:bold;">{{ error_msg }}</p>
+  {% endif %}
+
+  <h2>📊 Price History</h2>
+
+  <table>
+    <tr>
+      <th>Crop</th>
+      <th>Price (₹)</th>
+      <th>Market</th>
+      <th>Date Saved</th>
+    </tr>
+
+    {% for entry in history %}
+    <tr>
+      <td>{{ entry.crop_name }}</td>
+      <td>{{ entry.price }}</td>
+      <td>{{ entry.market_name }}</td>
+       <td>{{ entry.timestamp.strftime('%d-%m-%Y %H:%M') }}</td>
+
+    </tr>
+    {% endfor %}
+  </table>
+
+  <br>
+  <button onclick='window.location.href="{{ url_for("home") }}"'>⬅ Back to Dashboard</button>
+
+</body>
+</html>

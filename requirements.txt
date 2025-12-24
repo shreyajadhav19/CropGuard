@@ -1,0 +1,31 @@
+Flask==3.0.3
+Werkzeug==3.0.3
+Jinja2==3.1.4
+itsdangerous==2.2.0
+MarkupSafe==2.1.5
+
+# For AI model (disease detection)
+tensorflow==2.17.0
+numpy==1.26.4
+Pillow==10.3.0
+
+# For database and utilities
+SQLAlchemy==2.0.32
+
+# Optional (if you later integrate chatbot NLP)
+transformers==4.44.2
+torch==2.4.0
+
+# For debugging & local development
+gunicorn==22.0.0
+flask
+flask_sqlalchemy
+tensorflow
+numpy
+pillow
+flask
+flask_sqlalchemy
+tensorflow
+numpy
+pillow
+werkzeug

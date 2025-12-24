@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Management</title>
+
+    <style>
+        body {
+            background-color: #F4F7EC;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #283106;
+            padding-left: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 2px solid #777E5C;
+            border-radius: 6px;
+            width: 180px;
+            background-color: white;
+            font-size: 15px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #283106;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #283106;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #435b0a;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #283106;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .status-available {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-rented {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        function toggleOtherInput() {
+            const dropdown = document.getElementById("equipmentDropdown");
+            const textbox = document.getElementById("otherEquipmentInput");
+
+            if (dropdown.value === "Other (Not Listed)") {
+                textbox.style.display = "block";
+                textbox.required = true;
+            } else {
+                textbox.style.display = "none";
+                textbox.required = false;
+                textbox.value = "";
+            }
+        }
+    </script>
+
+</head>
+<body>
+
+    <h1>Farm Equipment Sharing Platform</h1>
+
+    <form action="/equipment/add" method="POST" class="form-container">
+
+        <!-- Equipment Dropdown -->
+        <select name="name" id="equipmentDropdown" onchange="toggleOtherInput()" required>
+            <option value="">-- Select Equipment --</option>
+
+            {% for eq in equipment_list %}
+            <option value="{{ eq }}">{{ eq }}</option>
+            {% endfor %}
+
+            <option value="Other (Not Listed)">Other (Not Listed)</option>
+        </select>
+
+        <!-- Hidden Textbox for "Other" option -->
+        <input type="text" 
+               id="otherEquipmentInput" 
+               name="name" 
+               placeholder="Enter custom equipment"
+               style="display:none;">
+
+        <!-- Other Form Inputs -->
+        <input type="text" name="renter" placeholder="Renter Name" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <input type="number" name="price" placeholder="Price Per Day" required>
+
+        <input type="date" name="rented_date">
+        
+        <input type="date" name="returned_date">
+
+        <button type="submit">Add Equipment</button>
+    </form>
+
+
+    <h2 style="padding-left: 20px;">Available Equipment</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Renter</th>
+            <th>Location</th>
+            <th>Price (₹/Day)</th>
+            <th>Rented Date</th>
+            <th>Returned Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for item in equipment_data %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.renter }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.rented_date }}</td>
+            <td>{{ item.returned_date }}</td>
+            <td class="{{ 'status-available' if item.status == 'Available' else 'status-rented' }}">
+    {{ item.status }}
+
+    {% if item.status == 'Rented' %}
+        <form action="/equipment/return/{{ item.id }}" method="POST" style="margin-top:5px;">
+            <input type="date" name="returned_date" required>
+            <button type="submit">Mark Returned</button>
+        </form>
+    {% endif %}
+</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Diary</title>
+
+    <style>
+        body {
+            background: linear-gradient(270deg, #283106, #777E5C, #C7C2AB, #D1DBBD, #DFE0DC);
+            background-size: 1000% 1000%;
+            animation: moveGradient 18s ease infinite;
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #283106;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 40px auto;
+            background: #ffffffcc;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(40, 49, 6, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #283106;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea, select {
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #777E5C;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+        }
+
+        button {
+            background: #777E5C;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background: #283106;
+            transform: scale(1.05);
+        }
+
+        .entry {
+            background: #fff;
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 5px solid #283106;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(40,49,6,0.2);
+        }
+
+        .timestamp {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Farm Diary – Add Your Activity</h2>
+
+    <form action="/save_diary" method="POST">
+        <select name="category" required>
+            <option value="">Select Work Type</option>
+            <option value="Spray">Spray</option>
+            <option value="Fertilizer">Fertilizer</option>
+            <option value="Irrigation">Irrigation</option>
+            <option value="Harvesting">Harvesting</option>
+            <option value="Ploughing">Ploughing</option>
+            <option value="General Note">General Note</option>
+        </select>
+
+        <textarea name="details" placeholder="Enter work details..." required></textarea>
+
+        <input type="datetime-local" name="entry_time" required>
+
+        <button type="submit">Save Entry</button>
+        <a href="/diary_search">
+    <button class="btn" type="button">🔎 Search by Date</button>
+</a>
+
+            <button type="button" onclick="window.location.href='{{ url_for('home') }}'" 
+                class="back-btn" 
+                style="margin-left: 10px;">
+            ⬅ Back to Dashboard
+        </button>
+    </form>
+
+    <h2 style="margin-top:40px;">Previous Entries</h2>
+
+{% for entry in entries %}
+    <div class="entry">
+        <h3>{{ entry.category }}</h3>
+        <p>{{ entry.details }}</p>
+        <p class="timestamp">📅 {{ entry.entry_time }}</p>
+    </div>
+{% endfor %}
+
+
+</div>
+
+</body>
+</html>

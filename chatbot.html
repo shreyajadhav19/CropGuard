@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriSmart Chatbot | AgriConnect</title>
+  <style>
+    body {
+      background-color: #D1DBBD;
+      font-family: 'Poppins', sans-serif;
+      color: #283106;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-container {
+      background-color: #C7C2AB;
+      border-radius: 20px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 450px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #283106;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #444;
+      font-size: 1rem;
+      margin-bottom: 25px;
+    }
+
+    .chat-box {
+      width: 100%;
+      height: 200px;
+      background-color: #D1DBBD;
+      border-radius: 10px;
+      border: 1px solid #777E5C;
+      padding: 10px;
+      overflow-y: auto;
+      text-align: left;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #777E5C;
+      background-color: #D1DBBD;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      background-color: #777E5C;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #283106;
+      transform: scale(1.05);
+    }
+
+    .back-btn {
+      margin-top: 25px;
+      background-color: #283106;
+    }
+
+    .back-btn:hover {
+      background-color: #555;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #283106;
+      font-size: 0.9rem;
+    }
+
+    /* Scrollbar for chatbox */
+    .chat-box::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chat-box::-webkit-scrollbar-thumb {
+      background-color: #777E5C;
+      border-radius: 8px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <h1>🤖 AgriSmart Chatbot</h1>
+    <p>Ask me anything about farming, crops, fertilizers, or sustainable practices!</p>
+
+    <div class="chat-box" id="chatBox">
+      <p><b>Bot:</b> Hello! 🌾 How can I help you today?</p>
+    </div>
+
+    <div class="input-container">
+      <input type="text" id="userInput" placeholder="Type your question here..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='{{ url_for('home') }}'">⬅ Back to Home</button>
+  </div>
+
+  <footer>
+    <p>© 2025 AgriConnect | Smart Farming for a Better Tomorrow</p>
+  </footer>
+
+  <script>
+  async function sendMessage() {
+    const input = document.getElementById('userInput');
+    const chatBox = document.getElementById('chatBox');
+    const userText = input.value.trim();
+
+    if (!userText) return;
+
+    // Show user message
+    chatBox.innerHTML += `<p><b>You:</b> ${userText}</p>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+    input.value = '';
+
+    // Show typing...
+    const typingMsg = document.createElement('p');
+    typingMsg.innerHTML = `<b>Bot:</b> ⏳ Thinking...`;
+    chatBox.appendChild(typingMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+      const response = await fetch('/chatbot_api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userText })
+      });
+
+      const data = await response.json();
+      typingMsg.innerHTML = `<b>Bot:</b> ${data.reply}`;
+    } catch (error) {
+      typingMsg.innerHTML = `<b>Bot:</b> Sorry 🌾, I couldn’t get that. Please try again.`;
+    }
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

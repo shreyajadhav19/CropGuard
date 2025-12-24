@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Diary Entries</title>
+
+    <style>
+        body {
+            background-color: #D1DBBD;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .container {
+            background: white;
+            width: 50%;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #283106;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #283106;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #777E5C;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            background-color: #777E5C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #283106;
+        }
+
+        .result-box {
+            background: #ffffff;
+            width: 60%;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+
+        .entry {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-left: 5px solid #283106;
+            background-color: #F3F4E9;
+            border-radius: 6px;
+        }
+
+        .no-data {
+            color: #283106;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🔎 Search Diary Entries</h2>
+
+        <form action="{{ url_for('diary_search') }}" method="POST">
+            <label>Select Date:</label>
+            <input type="date" name="search_date" required>
+          <br><br>
+        
+            <button type="submit">Search</button>
+            <button type="button" onclick="window.location.href='{{ url_for('home') }}'" 
+                class="back-btn" 
+                style="margin-left: 10px;">
+            ⬅ Back to Dashboard
+        </button>
+    </form>
+</div>
+        </form>
+    </div>
+
+    <!-- ⭐ SHOW RESULTS HERE ⭐ -->
+    {% if entries is not none %}
+        <div class="result-box">
+            <h3>📅 Search Results</h3>
+
+            {% if entries %}
+                {% for entry in entries %}
+                    <div class="entry">
+                        <strong>Category:</strong> {{ entry.category }}<br>
+                        <strong>Details:</strong> {{ entry.details }}<br>
+                        <strong>Date:</strong> {{ entry.entry_time }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-data">❌ No entries found for this date.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</body>
+</html>

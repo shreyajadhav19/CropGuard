@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Crop Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            background: linear-gradient(270deg, #283106, #777E5C, #C7C2AB, #D1DBBD, #DFE0DC);
+            background-size: 1200% 1200%;
+            animation: moveBG 18s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        @keyframes moveBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .upload-form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            width: 60%;
+            border-radius: 10px;
+            border: none;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #283106;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #111;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #fff;
+            background-color: #777E5C;
+            padding: 12px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #283106;
+            transform: scale(1.07);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌾 Smart Crop Planner (Live Weather Based)</h1>
+    <p>Enter your city to get crop suggestions based on today’s weather.</p>
+
+    <form method="POST" class="upload-form">
+        <input type="text" name="city" placeholder="Enter city name" required>
+        <button type="submit">Get Crop Suggestion</button>
+    </form>
+
+    {% if error %}
+        <p style="color: #ff8989; font-weight: bold;">{{ error }}</p>
+    {% endif %}
+
+    {% if weather %}
+    <div class="result">
+        <h3>🌤 Weather in {{ weather.city }}:</h3>
+        <p><b>Temperature:</b> {{ weather.temp }}°C</p>
+        <p><b>Humidity:</b> {{ weather.humidity }}%</p>
+        <p><b>Condition:</b> {{ weather.condition }}</p>
+    </div>
+    {% endif %}
+
+    {% if suggestion %}
+    <div class="result">
+        <h3>🌱 Recommended Crops:</h3>
+        <p style="font-size:1.2rem; font-weight:600;">{{ suggestion }}</p>
+    </div>
+    {% endif %}
+
+    <a href="/home" class="back-btn">⬅ Back to Dashboard</a>
+</div>
+
+</body>
+</html>
+
+
+
+

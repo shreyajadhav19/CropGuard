@@ -1,0 +1,152 @@
+/* 🌿 Animated Gradient Background */
+body {
+  background: linear-gradient(270deg, #283106, #777E5C, #C7C2AB, #D1DBBD, #DFE0DC);
+  background-size: 1000% 1000%;
+  animation: moveGradient 18s ease infinite;
+  font-family: 'Poppins', sans-serif;
+  color: #283106;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 🎞️ Gradient Animation */
+@keyframes moveGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🌾 Header Section */
+header {
+  text-align: center;
+  padding: 60px 20px 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.logo {
+  font-size: 3em;
+  font-weight: bold;
+  color: #283106;
+  text-shadow: 2px 3px 10px rgba(40, 49, 6, 0.3);
+}
+
+.tagline {
+  font-size: 1.3em;
+  margin-top: 10px;
+  color: #4a541f;
+  opacity: 0.9;
+}
+
+/* 🌱 Content Area */
+.content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 25px;
+  box-shadow: 0 8px 20px rgba(40, 49, 6, 0.2);
+  animation: fadeInUp 1.2s ease;
+}
+
+/* ✨ Fade Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🌾 Card Layout for Index Page */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin-top: 50px;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  color: #283106;
+  font-weight: 600;
+  font-size: 1.1em;
+  text-align: center;
+  width: 80%;
+  max-width: 300px;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(40, 49, 6, 0.3);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(145deg, #D1DBBD, #C7C2AB);
+  box-shadow: 0 8px 25px rgba(40, 49, 6, 0.4);
+}
+
+/* 🌸 Buttons */
+.btn {
+  display: inline-block;
+  background-color: #283106;
+  color: #fff;
+  padding: 12px 25px;
+  margin: 20px auto;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+  box-shadow: 0 3px 10px rgba(40, 49, 6, 0.3);
+}
+
+.btn:hover {
+  background-color: #777E5C;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(40, 49, 6, 0.4);
+}
+
+/* 🌾 Footer */
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  color: #283106;
+  font-size: 0.95em;
+  opacity: 0.9;
+  margin-top: 60px;
+  border-top: 2px solid rgba(40, 49, 6, 0.2);
+  animation: fadeIn 2s ease;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: 25px 15px;
+  }
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 2em;
+  }
+}
+.back-btn {
+    background-color: #777E5C;
+    color: white;
+    padding: 50px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #283106;
+    transform: scale(1.05);
+}

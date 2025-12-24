@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropGuard - Smart Farming</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #283106;
+    overflow-x: hidden;
+
+    /* Smooth animated gradient background */
+    background: linear-gradient(120deg, #D1DBBD, #C7C2AB, #777E5C);
+    background-size: 300% 300%;
+    animation: colorFlow 15s ease infinite;
+}
+
+
+        /* NAVBAR */
+        nav {
+            background-color: #283106;
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h1 {
+            color: white;
+            font-size: 26px;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #D1DBBD;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+           
+            animation: backgroundShift 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+@keyframes colorFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 10px auto 30px;
+        }
+
+        .btn-start {
+            padding: 12px 28px;
+            background-color: #556B2F;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-start:hover {
+            background-color: #3c4f21;
+        }
+
+        /* FEATURES SECTION */
+        .section-features {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .features-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #283106;
+        }
+
+        /* CARDS CONTAINER */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* INDIVIDUAL CARD */
+        .feature-card {
+            background: #f6f6ef;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+
+        .feature-card .icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #283106;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #4c4c4c;
+        }
+
+    </style>
+</head>
+
+
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>AgriConnect</h2>
+       
+    </nav>
+ <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Welcome to CropGuard</h1>
+        <p>
+            Your all-in-one smart farming companion — designed to help farmers make informed decisions,
+            save time, reduce effort, and increase productivity.
+        </p>
+       <a href="{{ url_for('home') }}" class="btn-start">Get Started</a>
+    </section>
+
+    <!-- FEATURES (CARD STYLE) -->
+    <section id="features" class="section-features">
+        <h2 class="features-title">What CropGuard Offers</h2>
+
+        <div class="feature-cards">
+
+            <!-- CARD 1 -->
+            <div class="feature-card">
+                <div class="icon">🌾</div>
+                <h3>Smart Crop Planner</h3>
+                <p>
+                    Uses real-time weather data and AI logic to recommend the best crops for your region.
+                    Helps farmers avoid climate risks, choose profitable crops, and plan their entire farming season intelligently.
+                </p>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Real-Time Market Price Tracker</h3>
+                <p>
+                    Fetches fresh mandi prices using a secure API, stores them in your database, 
+                    and helps farmers decide the best market and best time to sell their crops based on live trends.
+                </p>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="feature-card">
+                <div class="icon">🚜</div>
+                <h3>Community Equipment Sharing</h3>
+                <p>
+                    Allows farmers to share, rent, and lend equipment within their community — reducing costs and 
+                    avoiding unnecessary purchases. Tracks rented and returned dates automatically.
+                </p>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="feature-card">
+                <div class="icon">📘</div>
+                <h3>Farmer Learning Hub</h3>
+                <p>
+                    A growing library of tutorials, guides, seasonal crop tips, and modern farming techniques 
+                    that empower farmers with the right knowledge at the right time.
+                </p>
+            </div>
+
+            <!-- CARD 5 -->
+            <div class="feature-card">
+                <div class="icon">🤖</div>
+                <h3>AI Chatbot</h3>
+                <p>
+                    Your personal assistant for farming queries — available 24/7.  
+                    Ask about diseases, fertilizer use, soil tips, weather insights, and more.
+                </p>
+            </div>
+
+            <!-- CARD 6 -->
+            <div class="feature-card">
+                <div class="icon">📓</div>
+                <h3>Smart Farm Diary</h3>
+                <p>
+                    Helps farmers record daily farm activities, expenses, rainfall, treatments, and track growth — 
+                    all neatly organized and searchable anytime.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>
